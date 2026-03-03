@@ -10,7 +10,7 @@ box-sizing: border-box;
 body{
     color: black;
     background-color: thistle;
-    height: 100vh;
+    min-height: 100vh;
     
     background-image: url("assets/20251018_173107_pixelized.jpg");
     background-size: cover;
@@ -20,6 +20,7 @@ body{
 
     font-family: "Atkinson Hyperlegible Mono", serif;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 
@@ -28,19 +29,29 @@ body{
 div{
     background-color:aliceblue;            
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
-    margin-bottom: auto;
 }
 
 .box{
     background-color: aliceblue;
     padding: 40px 48px;
+    margin: 10px;
     max-width: 480px;
     width: 90%;
     display: flex;
     flex-direction: column;
+}
+
+.shelf{
+    background-color: aliceblue;
+    padding: 40px 48px;
+    margin: 10px;
+    max-width: 480px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
+.shelf:hover{
+    background-color:#D8E0E7;
 }
 .box p {
 color: #333333;
@@ -95,7 +106,6 @@ tit{
     padding: 10px 14px;
     font-size: 1.2rem;
     cursor: pointer;
-    
 }
 
 .menu-btn:hover {
@@ -124,3 +134,4 @@ tit{
 .menu-popup a:hover {
     background-color: #D8E0E7;
 }
+
