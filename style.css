@@ -97,7 +97,7 @@ tit{
 }
 
 .menu-btn:hover {
-    background-color: #ddd;
+    background-color: #D8E0E7;
 }
 
 .menu-popup {
@@ -116,12 +116,10 @@ tit{
 
 .menu-popup a {
     text-decoration: none;
-    color: #333;
-    font-size: 0.9rem;
+    color: black;
     padding: 4px 8px;
-    border-radius: 4px;
 }
 
 .menu-popup a:hover {
-    background-color: #ddd;
+    background-color: #D8E0E7;
 }
