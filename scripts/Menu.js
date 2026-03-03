@@ -8,3 +8,8 @@ fetch('menu.html')
     .then(html => {
         document.getElementById('menuPopup').innerHTML = html;
     });
+
+function expandShelf(element) {
+    // This allows you to click to open, and click again to close
+    element.classList.toggle('expanded');
+}

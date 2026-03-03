@@ -49,10 +49,26 @@ div{
     width: 90%;
     display: flex;
     flex-direction: column;
+    cursor: pointer;
+
+    max-height: 70px;
+    overflow: hidden;
 }
+
 .shelf:hover{
     background-color:#D8E0E7;
 }
+
+.shelf .expanded{
+    max-height: none;
+    cursor:default;
+}
+
+.shelf .expanded:hover{
+    background-color: aliceblue;
+}
+
+
 .box p {
 color: #333333;
 font-size: 1rem;
@@ -126,8 +142,6 @@ tit{
 }
 
 .menu-popup a {
-    text-decoration: none;
-    color: black;
     padding: 4px 8px;
 }
 
