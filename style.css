@@ -6,7 +6,6 @@ padding: 0;
 box-sizing: border-box;
 }
 
-
 body{
     color: black;
     background-color: thistle;
@@ -17,10 +16,10 @@ body{
     background-position: center;
     background-attachment: fixed;
 
-
     font-family: "Atkinson Hyperlegible Mono", serif;
     display: flex;
     flex-direction: column;
+
     align-items: center;
     justify-content: center;
 
@@ -29,13 +28,13 @@ body{
 div{
     background-color:aliceblue;            
     text-align: center;
+    margin: 10px;
+    max-width: 480px;
 }
 
 .box{
     background-color: aliceblue;
     padding: 40px 48px;
-    margin: 10px;
-    max-width: 480px;
     width: 90%;
     display: flex;
     flex-direction: column;
@@ -44,11 +43,10 @@ div{
 .shelf{
     background-color: aliceblue;
     padding: 40px 48px;
-    margin: 10px;
-    max-width: 480px;
     width: 90%;
     display: flex;
     flex-direction: column;
+    
     cursor: pointer;
 
     max-height: 70px;
@@ -81,7 +79,7 @@ a{
     font-style: italic;
     color: #333366;
 }
-tit{
+h1{
     font-size: 1.5rem;
 }
 
