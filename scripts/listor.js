@@ -1,25 +1,5 @@
-/**
- * list-pages.js
- * Automatically lists all HTML files in the current GitHub Pages directory
- * and injects links into the element with id="page-list".
- *
- * HOW TO SET UP:
- *   1. Set GITHUB_USER and GITHUB_REPO below.
- *   2. Add <ul id="page-list"></ul> (or any element) to your HTML where you want the links.
- *   3. Include this script: <script src="list-pages.js"></script>
- *
- * NOTES:
- *   - Works for public repositories only (no auth token needed).
- *   - The current page itself is excluded from the list.
- *   - For private repos, generate a fine-grained token with read-only Contents
- *     access and set it as GITHUB_TOKEN below.
- */
-
-const GITHUB_USER = "your-username";   // ← Replace with your GitHub username
-const GITHUB_REPO = "your-repo-name"; // ← Replace with your repository name
-const GITHUB_TOKEN = "";              // ← Optional: personal access token for private repos
-
-// ---------------------------------------------------------------------------
+const GITHUB_USER = "m-goulet";
+const GITHUB_REPO = "Pebbles-in-the-rain";
 
 (async function () {
   // Derive the subdirectory path from the current URL.
@@ -35,12 +15,9 @@ const GITHUB_TOKEN = "";              // ← Optional: personal access token for
   const apiPath = subPath ? `contents/${subPath}` : "contents";
   const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/${apiPath}`;
 
-  const headers = { Accept: "application/vnd.github+json" };
-  if (GITHUB_TOKEN) headers["Authorization"] = `Bearer ${GITHUB_TOKEN}`;
-
   let files;
   try {
-    const res = await fetch(apiUrl, { headers });
+    const res = await fetch(apiUrl, { headers: { Accept: "application/vnd.github+json" } });
     if (!res.ok) throw new Error(`GitHub API error: ${res.status} ${res.statusText}`);
     files = await res.json();
   } catch (err) {
