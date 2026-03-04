@@ -11,10 +11,13 @@ const GITHUB_REPO = "Pebbles-in-the-rain";
   if (pathname.startsWith(repoBase)) {
     subPath = pathname.slice(repoBase.length).replace(/\/[^/]*$/, ""); // strip filename
   }
+  console.log(subPath);
 
   const apiPath = subPath ? `contents/${subPath}` : "contents";
   const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/${apiPath}`;
 
+  console.log(apiUrl);
+  
   let files;
   try {
     const res = await fetch(apiUrl, { headers: { Accept: "application/vnd.github+json" } });
