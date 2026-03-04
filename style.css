@@ -53,6 +53,7 @@ h1{
     width: 90%;
     display: flex;
     flex-direction: column;
+    min-height: 10px;
 }
 
 .box p {
@@ -102,12 +103,12 @@ h1{
     font-size: 0.75rem;
     font-style: italic;
     text-align: right;
-    margin-top: auto;   
+    margin-top: auto;
+    align-self: flex-end;
 }
 
 .recipe-ingredients, .recipe-steps{
     text-align: left;
-    margin-bottom: 30px;
 }
 
 .menu-container{
@@ -117,21 +118,21 @@ h1{
 }
 
 .menu-btn {
-    background-color: aliceblue;
+    background-color: var(--bg-main);
     border: none;
     padding: 10px 14px;
     font-size: 1.2rem;
     cursor: pointer;
 }
 
-.menu-btn:hover {
-    background-color: #D8E0E7;
+.menu-btn:hover, .menu-popup a:hover {
+    background-color: var(--bg-hover);
 }
 
 .menu-popup {
     display: none;
     flex-direction: column;
-    background-color: aliceblue;
+    background-color: var(--bg-main);
     padding: 10px;
     margin-bottom: 8px;
     gap: 8px;
@@ -145,7 +146,4 @@ h1{
     padding: 4px 8px;
 }
 
-.menu-popup a:hover {
-    background-color: #D8E0E7;
-}
 
