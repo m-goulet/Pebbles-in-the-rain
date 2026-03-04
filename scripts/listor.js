@@ -13,7 +13,7 @@ const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/conte
     console.error("listor.js:", err);
     return;
   }
-  console.log(res);
+  console.log(files);
 
   // Filter to .html files, excluding the current page
   const currentFile = pathname.split("/").pop() || "index.html";
