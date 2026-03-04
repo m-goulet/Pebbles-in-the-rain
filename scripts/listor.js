@@ -21,7 +21,7 @@ const GITHUB_REPO = "Pebbles-in-the-rain";
     if (!res.ok) throw new Error(`GitHub API error: ${res.status} ${res.statusText}`);
     files = await res.json();
   } catch (err) {
-    console.error("list-pages.js:", err);
+    console.error("listor.js:", err);
     return;
   }
 
