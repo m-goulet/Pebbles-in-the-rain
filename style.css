@@ -1,5 +1,14 @@
     @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&display=swap');
 
+:root {
+    --bg-main: aliceblue;
+    --bg-hover: #D8E0E7;
+    --text-primary: #333333;
+    --text-secondary: black;
+    --accent-color: #333366;
+    --font-mono: "Atkinson Hyperlegible Mono", monospace;
+}
+
 * {
 margin: 0;
 padding: 0;
@@ -8,15 +17,12 @@ box-sizing: border-box;
 
 body{
     /*background picture formatting*/
-    background-image: url("assets/20251018_173107_pixelized.jpg");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-color: thistle;
+    background: thistle url("assets/20251018_173107_pixelized.jpg") no-repeat center center fixed;
+    background-size: cover;   
 
     /*fontstuffs*/
-    color: black;
-    font-family: "Atkinson Hyperlegible Mono", serif;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
 
     /*div positionning?*/
     display: flex;
@@ -27,32 +33,46 @@ body{
 }
 
 div{
-    background-color:aliceblue;            
+    background-color:var(--bg-main);            
     text-align: center;
     margin: 10px;
     max-width: 480px;
 }
 
+a{
+    text-decoration: none;
+    font-style: italic;
+    color: var(--accent-color);
+}
+h1{
+    font-size: 1.5rem;
+}
+
 .box{
-    background-color: aliceblue;
     padding: 40px 48px;
     width: 90%;
     display: flex;
     flex-direction: column;
 }
 
+.box p {
+    line-height: 1.75;
+    text-align: center;
+}
+
 .shelf{
-    background-color: aliceblue;
     padding: 20px 60px;
     width: 90%;
-    display: flex;
-    flex-direction: column;
-
-    cursor: pointer;
-
     max-height: 70px;
     overflow: hidden;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.shelf:hover{
+    background-color: var(--bg-hover);
 }
 
 .shelf > *:not(h1){
@@ -60,14 +80,13 @@ div{
 }
 
 .shelf h1 {
-    display: block;
-    font-size: 1.5rem;
     pointer-events: none; /* Helps clicks pass through to the div */
 }
 
-.shelf.expanded{
+.shelf.expanded {
     max-height: none;
     cursor:default;
+    background-color: var(--bg-main);
 }
 
 .shelf.expanded h1{
@@ -76,30 +95,7 @@ div{
 
 .shelf.expanded > * {
     display: block;
-}
-
-.shelf:hover{
-    background-color:#D8E0E7;
-}
-
-.shelf.expanded:hover{
-    background-color: aliceblue;
-}
-
-.box p {
-color: #333333;
-font-size: 1rem;
-line-height: 1.75;
-text-align: center;
-}
-
-a{
-    text-decoration: none;
-    font-style: italic;
-    color: #333366;
-}
-h1{
-    font-size: 1.5rem;
+    margin: 10px;
 }
 
 .postscriptum{
@@ -109,12 +105,7 @@ h1{
     margin-top: auto;   
 }
 
-.box .recipe-ingredients{
-    text-align: left;
-    margin-bottom: 30px;
-}
-
-.box .recipe-steps{
+.recipe-ingredients, .recipe-steps{
     text-align: left;
     margin-bottom: 30px;
 }
