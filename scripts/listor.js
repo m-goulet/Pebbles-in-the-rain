@@ -27,6 +27,7 @@ const GITHUB_REPO = "Pebbles-in-the-rain";
 
   // Filter to .html files, excluding the current page
   const currentFile = pathname.split("/").pop() || "index.html";
+  console.log(htmlFiles);
   const htmlFiles = files.filter(
     (f) => f.type === "file" && f.name.endsWith(".html") && f.name !== currentFile
   );
