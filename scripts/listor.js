@@ -7,14 +7,16 @@ const GITHUB_REPO = "Pebbles-in-the-rain";
   const repoBase = `/${GITHUB_REPO}/`;
   const pathname = window.location.pathname;
   let subPath = "";
+
   console.log(pathname);
   console.log("potat");
+  
   if (pathname.startsWith(repoBase)) {
     subPath = pathname.slice(repoBase.length).replace(/\/[^/]*$/, ""); // strip filename
   }
   console.log(subPath);
 
-  const apiPath = subPath ? `contents/${subPath}` : "contents";
+  const apiPath = subPath ? `` : "contents";
   const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/${apiPath}`;
 
   console.log(apiUrl);
