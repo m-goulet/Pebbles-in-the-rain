@@ -3,6 +3,7 @@ const GITHUB_REPO = "Pebbles-in-the-rain";
 const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents`;
 
 (async function () {
+
   let files;
   try {
     const res = await fetch(apiUrl, { headers: { Accept: "application/vnd.github+json" } });
@@ -12,6 +13,7 @@ const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/conte
     console.error("listor.js:", err);
     return;
   }
+  console.log(res);
 
   // Filter to .html files, excluding the current page
   const currentFile = pathname.split("/").pop() || "index.html";
