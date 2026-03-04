@@ -3,6 +3,7 @@ const GITHUB_REPO = "Pebbles-in-the-rain";
 const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents`;
 
 (async function () {
+  const pathname = window.location.pathname;
 
   let files;
   try {
@@ -13,13 +14,10 @@ const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/conte
     console.error("listor.js:", err);
     return;
   }
-  console.log(files);
 
-  // Filter to .html files, excluding the current page
-  const currentFile = pathname.split("/").pop() || "index.html";
   console.log(files);
   const htmlFiles = files.filter(
-    (f) => f.type === "file" && f.name.endsWith(".html") && f.name !== currentFile
+    (f) => f.type === "file" && f.name.endsWith(".html")
   );
 
   const container = document.getElementById("page-list");
