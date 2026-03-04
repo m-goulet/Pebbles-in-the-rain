@@ -111,6 +111,24 @@ h1{
     text-align: left;
 }
 
+.rainbowrating{
+    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet, red);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: bold;
+    font-size: 24px;
+
+    /* Apply the animation */
+    animation: rainbow-scroll 3s linear infinite;
+}
+
+@keyframes rainbow-scroll{
+    to {
+        background-position: 200% center;
+    }
+}
 .menu-container{
     position: fixed;
     bottom: 24px;
