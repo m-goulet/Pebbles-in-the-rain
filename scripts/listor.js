@@ -1,26 +1,8 @@
 const GITHUB_USER = "m-goulet";
 const GITHUB_REPO = "Pebbles-in-the-rain";
+const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents`;
 
 (async function () {
-  // Derive the subdirectory path from the current URL.
-  // e.g. https://user.github.io/repo/docs/  →  "docs"
-  const repoBase = `/${GITHUB_REPO}/`;
-  const pathname = window.location.pathname;
-  let subPath = "";
-
-  console.log(pathname);
-  console.log("potat");
-  
-  if (pathname.startsWith(repoBase)) {
-    subPath = pathname.slice(repoBase.length).replace(/\/[^/]*$/, ""); // strip filename
-  }
-  console.log(subPath);
-
-  const apiPath = subPath ? `` : "contents";
-  const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/${apiPath}`;
-
-  console.log(apiUrl);
-
   let files;
   try {
     const res = await fetch(apiUrl, { headers: { Accept: "application/vnd.github+json" } });
