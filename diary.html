@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>pebbles in the rain</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="box">
+            <p style="font-style:italic">list of selected thoughts</p>
+        </div>
+        <div class="shelf" onclick="expandShelf(this)" style="max-width:none; width: 640px">
+            <h1>08/03/2026: Two party computation</h1>
+            <p>Goal: in a situation where x is 
+                Alice's secret and y is Bob's secret, compute f(x,y)=z and publish z without revealing 
+                x nor y to anyone else</p>
+            <p>Of course, knowledge of z often 
+                implies certain constraints on the unknown values. For example, if f(x,y)=max(x,y), 
+                then one of the values would be revealed anyways; if f(x,y) is defined as 1 when x>y 
+                and 0 otherwise, then the output would allow Alice and Bob to write an inequality about 
+                the other person's value (this particular case of two party computation is known as 
+                <a href="https://en.wikipedia.org/wiki/Yao%27s_Millionaires%27_problem">Yao's 
+                millionaires' problem</a>). Two party computation only guarantees that the computation 
+                can be done on x and y without needing to reveal x or y. Here is the procedure as I 
+                understand it:</p>
+            <ol>
+                <li>Suppose f is computable by some algorithm which can be represented as a circuit of 
+                    logic gates which take in two inputs and return an output (like AND, OR, NAND).</li>
+                <li>Alice <em>garbles</em> this circuit (explained in more detail later). This means 
+                    that an external observer would no longer be able to tell what each gate is. In other 
+                    words, the truth table for each gate is encrypted, but in a way that allows it to 
+                    still function in the circuit. Garbled circuits take in encrypted inputs.</li>
+                <li>Alice sends the garbled circuit along with her encrypted inputs which can be directly 
+                    plugged into the circuit</li>
+                <li>Bob obtains from Alice what his encrypted inputs would be, in a way that does not 
+                    reveal to Alice what his inputs are. This is called an <em>oblivious transfer</em>.</li>
+                <li>Bob evaluates the circuit and publishes the final unencrypted output.</li>
+            </ol>
+            <p>This procedure satisfies the requirements: Bob cannot learn Alice's 
+                secret, since a) she only sends an encrypted version of her input and b) Bob cannot 
+                reverse engineer Alice's secret by poking around the circuit, since it is garbled. 
+                Furthermore, Alice does not learn Bob's secret because of the oblivious transfer. 
+                Finally, the output computed is indeed correct as the garbled circuit computes the same 
+                thing as a regular circuit.</p>
+            <p><strong>garbled circuits</strong></p>
+            <p>Garbled circuits are circuits made of garbled gates.</p>
+            <p><strong>garbled gates</strong></p>
+            <p>The truth table for a regular logic gate is something like this:</p>
+            <p>Here is how to garble this gate, from Alice's point of view:</p>
+            <ol>
+                <li>Assign an arbitrary string to 0s (a_0) and 1s (a_1) in the a column, 
+                to 0s (b_0) and 1s (b_1) in the b column, and to 0s (c_0) and 1s (c_1) in 
+                the output column. Alice keeps these strings, and does not reveal them.</li>
+                <li>Write the new truth table, where each 0 or 1 is replaced by its corresponding string.</li>
+                <li>For each row in this new truth table, using a symmetric encryption 
+                scheme (=scheme that encrypts and decrypts using the same key, such as AES), encrypt the output column.
+                The key used is the string resulting from the concatenation of the input strings. Since each key 
+                is different, the output column should now look like four unintelligible strings.</li>
+                <li>In this truth table, for each row, replace the two input columns with a single entry 
+                corresponding to the cryptographically secure hash of the concatenation of the inputs. Now, the truth 
+                table has only two columns of four unintelligible strings. Shuffle the rows. This is the garbled gate.</li>
+            </ol>
+            <p>To an outsider, the gate means nothing. Alice can completely control which inputs Bob is allowed 
+            to plug into the circuit, by disclosing the corresponding strings for the input: a_0 or a_1; b_0 or 
+            b_1.</p>
+            <p>Here is how Bob would evaluate the output of the gate given certain inputs:</p>
+            <ol>
+                <li>Bob learns the input strings corresponding to his input bits. At the start of the circuit, these will be given 
+                by Alice, and later, he will learn them from previous garbled gates. Say his input bits are a=0 and b=0, then Alice 
+                would send him a_0 and b_0, for instance.</li>
+                <li>Bob computes the hash of the concatenated string a_0b_0, and looks at the row this corresponds to.</li>
+                <li>Bob can now look at which encrypted output string this corresponds to, and decrypt it, since he knows a_0b_0.</li>
+            </ol>            
+            <p>Bob now knows his output string. Importantly, he was unable to figure out what the strings for a_1 and b_1 are, since 
+            the input columns contain only hashes which give no information about a_1 and b_1. As a result, he is also unable to 
+            distinguish between each of the other input rows (he does not know which is a_0b_1, which is a1_b0 and 
+            which is a1_b1). Equally importantly, he also doesn't know what the outputs to the other input rows are either, since 
+            they are encrypted with a password he does not know. Finally, he does not know what bit his output string corresponds 
+            to either, and this is really important because it means he can now continue to evaluate other garbled gates in the 
+            circuit.</p>
+            <p>At this point, Bob is good to go: he can continue to evaluate each logic gate until the last one, which will give 
+            him the output of the computation. To convince yourself that the garbled circuit does not reveal any information about 
+            Alice's input, you could have the following thought experiment: Alice could have chosen a different input, but switched a whole 
+            bunch of the labels in the garbled circuit in a way that makes the evaluation process look identical to Bob. This is 
+            possible since each string is chosen arbitrarily. Therefore, Bob would not be able to distinguish between these two inputs, so 
+            Alice's input is safe from his grubby hands.</p>
+            <p>But wait, how does Bob get the strings corresponding to each bit of his initial input without revealing his input to Alice??</p>
+            <p><strong>Oblivious transfers</strong></p>
+            <p>Alice wants to communicate the string corresponding to Bob's input bit without Bob knowing the string corresponding to the opposite input bit and without her knowing which string she sent to Bob. A metaphor with a locked box works well here.</p>
+            <ol>
+                <li>Alice puts the first string into box_1 and the second string into box_2. The boxes look identical from the outside. She puts an identical lock on each box that only she has the key to.</li>
+                <li>Bob receives the boxes in order: first, box_1 and second, box_2. He cannot look inside any of the boxes because of Alice's lock. However, he can select which box he wants to look at by adding his own lock to just that box.</li>
+                <li>Bob sends only this box back to Alice, who cannot tell which box it was originally anymore since they were identical in appearance to her now.</li>
+                <li>Alice removes her lock from the box, which now only has Bob's lock.</li>
+                <li>Bob receives the box and unlocks it, learning only the string corresponding to his input. </li>
+            </ol>
+            <p>Bob does not learn the other string, and Alice does not know which string he has learned, so our goal of an oblivious transfer has been achieved</p>
+            <p>Concretely, this can be implemented by various cryptographic schemes. What is important is that the encryption and decryption processes must be 
+            commutative, i.e. if Alice encrypts the message then Bob encrypts the message, the resulting ciphertext can be decrypted both if Alice decrypts then 
+            Bob decrypts or if Bob decrypts then Alice decrypts.</p>
+            <p><strong>Flaws</strong></p>
+            <p>If Alice is malicious she could send a bad circuit which reveals Bob's value. Bob would have a hard time telling.</p>
+            <p>I have no idea how you could efficiently implement this in hardware but this is a skill issue on my part. But it does seem that each garbled gate is a lot more complex than a regular logic gate, since it must be able to input and output a broader range of values (some arbitrary strings vs only 0s and 1s).</p>
+            <p><strong>related</strong></p>
+            <p>I think you could directly expand this to multi-party computation. Suppose you want to evaluate f(x_1, x_2, x_3, ..., x_n). Alice plays the same role, garbling the circuit, then communicates via oblivious transfers Bob's input strings. Bob can broadcast which hashes in the input gate he selects. Charlie does the same, etc. until the last person who can now evaluate the entire circuit. The hashes do not reveal what the underlying inputs are, so we are good here. This implementation would still be subject to the flaws of garbled circuits though, and it seems that most implementations of multi-party computation do not adopt this approach, though I haven't read much into it. </p>
+            <p class="postscriptum">
+                further reading: <a href="https://github.com/0xPARC/0xparc-intro-book">Programmable Cryptography</a>, <a href="https://en.wikipedia.org/wiki/Garbled_circuit">Garbled circuits</a>, <a href="https://en.wikipedia.org/wiki/Secure_multi-party_computation">Multi-party computation</a>
+            </p>
+        </div>
+
+        <div class="menu-container">
+            <div class="menu-popup" id="menuPopup"></div>
+            <button class="menu-btn" onclick="toggleMenu()">☰</button>
+        </div>
+        <script src="scripts/Menu.js"></script>
+    </body>    
+</html>
