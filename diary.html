@@ -8,6 +8,37 @@
         <div class="box">
             <p style="font-style:italic">list of selected thoughts</p>
         </div>
+        <div class="shelf" onclick="expandShelf(this)" style="max-width: none; width:640px">
+            <h1>08/03/2026: RSA, briefly</h1>
+            <p>Goal: be able to encrypt messages without needing to share private keys</p>
+            <p>Conventional symmetric encryption work like normal locks: you use the same 
+            key to open and close (encrypt/decrypt) a box (a message). This is a problem 
+            if you want to communicate with someone but cannot be sure that you have a safe way to 
+            send them the key which will decrypt your text. Asymmetric encryption schemes, like the RSA encryption scheme, work differently: 
+            instead of sharing the keys to one model of locks, you send everyone open locks only 
+            you can unlock. As such, anyone can encrypt a message they want to send you by putting a message in the box then closing the lock, and only you, 
+            as the owner of the key, can decrypt it.</p>
+            <p><strong>The math behind RSA</strong></p>
+            <p>Suppose you are the sender (Alice).</p>
+            <ol>
+                <li>Alice generates two large primes, p and q and publishes their product n.</li>
+                <li>Alice selects some arbitrary integer d, which she keeps secret.</li>
+                <li>Alice finds an e such that de is congruent to 1 mod((p-1)(q-1)). This can be done efficiently through Euclid's algorithm. The neat thing here is that message^de (mod n) is congruent to message (mod n). Indeed, due to Euler's Totient theorem, x^[phi(n)]≡1 (mod n) when x and n coprime, so x^[de] ≡ x^[T*phi(n)+1] ≡ ((x^[phi(n)])^T)*x ≡ (1^T)*x ≡ x (mod n). Some handwaiving here and there but that's the gist of it.</li>
+                <li>Alice publishes e.</li>
+            </ol>
+            <p>Message transmission:</p>
+            <ol>
+                <li>Bob takes his message M, splits it into small chunks m_0, m_1, m_2, etc. according to some predefined protocol such that m_i are less than n.</li>
+                <li>Bob publishes (m_i)^e (mod n). Now his message is encrypted, nobody else can read it because it is extremely hard to take eth roots without knowing the prime factors of n.</li>
+                <li>Alice receives (m_i)^e and calculates ((m_i)^e)^d which is just m_i due to the construction of the d and e pair.</li>
+            </ol>
+            <p>Thus n and e consitute the public key, which allow anyone to put a Alice's lock on the messages people want to send her, whereas d is Alice's private key which allows only her to decrypt the messages.</p>
+            <p><strong>Flaws</strong></p>
+            <ul>
+                <li>This scheme relies on the difficulty of factoring large numbers, and I think at this point if you are still reading you have heard of Shor's algorithm which speeds up factoring to require only polynomial time on quantum computers. As far as I know we are not super close to quantum computers, but anyone could save any encrypted RSA message now and decrypt it later.</li>
+                <li>This scheme is somewhat inefficient (requires a lot of computing etc.) I think but I haven't read into this specifically.</li>
+            </ul>
+        </div>
         <div class="shelf" onclick="expandShelf(this)" style="max-width:none; width: 640px">
             <h1>08/03/2026: Two party computation</h1>
             <p>Goal: in a situation where x is 
