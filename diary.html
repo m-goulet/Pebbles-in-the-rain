@@ -30,7 +30,7 @@
                     words, the truth table for each gate is encrypted, but in a way that allows it to 
                     still function in the circuit. Garbled circuits take in encrypted inputs.</li>
                 <li>Alice sends the garbled circuit along with her encrypted inputs which can be directly 
-                    plugged into the circuit</li>
+                    plugged into the circuit.</li>
                 <li>Bob obtains from Alice what his encrypted inputs would be, in a way that does not 
                     reveal to Alice what his inputs are. This is called an <em>oblivious transfer</em>.</li>
                 <li>Bob evaluates the circuit and publishes the final output, from the last garbled gate (this special gate could just output plain old 0s or 1s, or be encrypted, in which case Alice helps decrypting it).</li>
@@ -66,11 +66,11 @@
             b_1.</p>
             <p>Here is how Bob would evaluate the output of the gate given certain inputs:</p>
             <ol>
-                <li>Bob learns the input strings corresponding to his input bits. At the start of the circuit, these will be given 
-                by Alice, and later, he will learn them from previous garbled gates. Say his input bits are a=0 and b=0, then Alice 
+                <li>Bob learns which input strings to use for a given gate. At the start of the circuit, these will be the strings corresponding to his input bits that are given 
+                by Alice, and later, he will learn the input strings to use from the output of previous garbled gates. Say his intial input bits are a=0 and b=0, then Alice 
                 would send him a_0 and b_0, for instance.</li>
-                <li>Bob computes the hash of the concatenated string a_0b_0, and looks at the row this corresponds to.</li>
-                <li>Bob can now look at which encrypted output string this corresponds to, and decrypt it, since he knows a_0b_0.</li>
+                <li>Bob computes the hash of the concatenated string a_0b_0, and looks at the row which contains this hash.</li>
+                <li>Bob can now find which encrypted output string this corresponds to, and decrypt it using key a_0b_0.</li>
             </ol>            
             <p>Bob now knows his output string. Importantly, he was unable to figure out what the strings for a_1 and b_1 are, since 
             the input columns contain only hashes which give no information about a_1 and b_1. As a result, he is also unable to 
@@ -78,9 +78,9 @@
             which is a1_b1). Equally importantly, he also doesn't know what the outputs to the other input rows are either, since 
             they are encrypted with a password he does not know. Finally, he does not know what bit his output string corresponds 
             to either, and this is really important because it means he can now continue to evaluate other garbled gates in the 
-            circuit.</p>
+            circuit without additional knowledge of the gates of the circuit.</p>
             <p>At this point, Bob is good to go: he can continue to evaluate each logic gate until the last one, which will give 
-            him the output of the computation. To convince yourself that the garbled circuit does not reveal any information about 
+            him the output of the computation. As mentionned previously, the output gates could be special, having no encryption on the output column, or Alice could simply send what bit each output string corresponds to. To convince yourself that the garbled circuit does not reveal any information about 
             Alice's input, you could have the following thought experiment: Alice could have chosen a different input, but switched a whole 
             bunch of the labels in the garbled circuit in a way that makes the evaluation process look identical to Bob. This is 
             possible since each string is chosen arbitrarily. Therefore, Bob would not be able to distinguish between these two inputs, so 
@@ -89,7 +89,7 @@
             <p><strong>Oblivious transfers</strong></p>
             <p>Alice wants to communicate the string corresponding to Bob's input bit without Bob knowing the string corresponding to the opposite input bit and without her knowing which string she sent to Bob. A metaphor with a locked box works well here.</p>
             <ol>
-                <li>Alice puts the first string into box_1 and the second string into box_2. The boxes look identical from the outside. She puts an identical lock on each box that only she has the key to.</li>
+                <li>Alice puts the first string into box_1 and the second string into box_2. The boxes are indistinguishable from the outside. She puts an identical lock on each box that only she has the key to.</li>
                 <li>Bob receives the boxes in order: first, box_1 and second, box_2. He cannot look inside any of the boxes because of Alice's lock. However, he can select which box he wants to look at by adding his own lock to just that box.</li>
                 <li>Bob sends only this box back to Alice, who cannot tell which box it was originally anymore since they were identical in appearance to her now.</li>
                 <li>Alice removes her lock from the box, which now only has Bob's lock.</li>
@@ -99,6 +99,7 @@
             <p>Concretely, this can be implemented by various cryptographic schemes. What is important is that the encryption and decryption processes must be 
             commutative, i.e. if Alice encrypts the message then Bob encrypts the message, the resulting ciphertext can be decrypted both if Alice decrypts then 
             Bob decrypts or if Bob decrypts then Alice decrypts.</p>
+            <p>A final note for this section: this is a 1-of-2 oblivious transfer. It is pretty trivial to extend this to 1-of-n oblivious transfers (just send multiple boxes). Also, various protocols exist which do not require 3 back and forth messages. </p>
             <p><strong>Flaws</strong></p>
             <ul>
                 <li>If Alice is malicious she could send a bad circuit which reveals Bob's value. Bob would have a hard time telling.</li>
