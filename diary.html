@@ -41,7 +41,7 @@
                 Furthermore, Alice does not learn Bob's secret because of the oblivious transfer. 
                 Finally, the output computed is indeed correct as the garbled circuit computes the same 
                 thing as a regular circuit.</p>
-                
+
             <p><strong>garbled circuits</strong></p>
             <p>Garbled circuits are circuits made of garbled gates.</p>
             <p><strong>garbled gates</strong></p>
@@ -100,8 +100,10 @@
             commutative, i.e. if Alice encrypts the message then Bob encrypts the message, the resulting ciphertext can be decrypted both if Alice decrypts then 
             Bob decrypts or if Bob decrypts then Alice decrypts.</p>
             <p><strong>Flaws</strong></p>
-            <p>If Alice is malicious she could send a bad circuit which reveals Bob's value. Bob would have a hard time telling.</p>
-            <p>I have no idea how you could efficiently implement this in hardware but this is a skill issue on my part. But it does seem that each garbled gate is a lot more complex than a regular logic gate, since it must be able to input and output a broader range of values (some arbitrary strings vs only 0s and 1s).</p>
+            <ul>
+                <li>If Alice is malicious she could send a bad circuit which reveals Bob's value. Bob would have a hard time telling.</li>
+                <li>I have no idea how you could efficiently implement this in hardware but this is a skill issue on my part. But it does seem that each garbled gate is a lot more complex than a regular logic gate, since it must be able to input and output a broader range of values (some arbitrary strings vs only 0s and 1s).</li>
+            </ul>
             <p><strong>related</strong></p>
             <p>I think you could directly expand this to multi-party computation. Suppose you want to evaluate f(x_1, x_2, x_3, ..., x_n). Alice plays the same role, garbling the circuit, then communicates via oblivious transfers Bob's input strings. Bob can broadcast which hashes in the input gate he selects. Charlie does the same, etc. until the last person who can now evaluate the entire circuit. The hashes do not reveal what the underlying inputs are, so we are good here. This implementation would still be subject to the flaws of garbled circuits though, and it seems that most implementations of multi-party computation do not adopt this approach, though I haven't read much into it. </p>
             <p class="postscriptum">
