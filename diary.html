@@ -33,7 +33,7 @@
                     plugged into the circuit</li>
                 <li>Bob obtains from Alice what his encrypted inputs would be, in a way that does not 
                     reveal to Alice what his inputs are. This is called an <em>oblivious transfer</em>.</li>
-                <li>Bob evaluates the circuit and publishes the final unencrypted output.</li>
+                <li>Bob evaluates the circuit and publishes the final output, from the last garbled gate (this special gate could just output plain old 0s or 1s, or be encrypted, in which case Alice helps decrypting it).</li>
             </ol>
             <p>This procedure satisfies the requirements: Bob cannot learn Alice's 
                 secret, since a) she only sends an encrypted version of her input and b) Bob cannot 
@@ -41,10 +41,12 @@
                 Furthermore, Alice does not learn Bob's secret because of the oblivious transfer. 
                 Finally, the output computed is indeed correct as the garbled circuit computes the same 
                 thing as a regular circuit.</p>
+                
             <p><strong>garbled circuits</strong></p>
             <p>Garbled circuits are circuits made of garbled gates.</p>
             <p><strong>garbled gates</strong></p>
             <p>The truth table for a regular logic gate is something like this:</p>
+            <p>TODO: add picture</p>
             <p>Here is how to garble this gate, from Alice's point of view:</p>
             <ol>
                 <li>Assign an arbitrary string to 0s (a_0) and 1s (a_1) in the a column, 
