@@ -80,7 +80,7 @@
             </ol>
             <p>Thus n and e consitute the public key, which allow anyone to put a Alice's lock on the messages people want to send her, whereas d is Alice's
                  private key which allows only her to decrypt the messages.</p>
-            <p><em>Wait, isn't exponentiating numbers like that really hard? After all, the numbers get huge super quick, no?</em>No, you reduce mod n (=looking only at the remainder when dividing by n) which allows the computation to stay manageable</p>
+            <p><em>Wait, isn't exponentiating numbers like that really hard? After all, the numbers get huge super quick, no?</em> No, you reduce mod n (=looking only at the remainder when dividing by n) which allows the computation to stay manageable</p>
             <p><strong>Flaws</strong></p>
             <ul>
                 <li>This scheme relies on the difficulty of factoring large numbers, and I think at this point if you are still reading you have heard of Shor's algorithm which speeds up factoring to require only polynomial time on quantum computers. As far as I know we are not super close to quantum computers, but anyone could save any encrypted RSA message now and decrypt it later.</li>
@@ -158,11 +158,11 @@
             <ol>
                 <li>Bob learns which input strings to use for a given gate. At the start of the circuit, these will be the strings corresponding to his input bits that are given 
                 by Alice, and later, he will learn the input strings to use from the output of previous garbled gates. Say his intial input bits are a=0 and b=0, then Alice 
-                would send him a_0 and b_0, for instance.</li>
-                <li>Bob computes the hash of the concatenated string a_0b_0, and looks at the row which contains this hash.</li>
-                <li>Bob can now find which encrypted output string this corresponds to, and decrypt it using key a_0b_0.</li>
+                would send him a_0=cat and b_0=dog, for instance.</li>
+                <li>Bob computes the hash of the concatenated string a_0b_0=catdog, and looks at the row which contains this hash.</li>
+                <li>Bob can now find which encrypted output string (42) this corresponds to, and decrypt it using key catdog.</li>
             </ol>            
-            <p>Bob now knows his output string. Importantly, he was unable to figure out what the strings for a_1 and b_1 are, since 
+            <p>Bob now knows his output string. Importantly, he was unable to figure out what the strings for a_1 (ribbon) and b_1 (snake) are, since 
             the input columns contain only hashes which give no information about a_1 and b_1. As a result, he is also unable to 
             distinguish between each of the other input rows (he does not know which is a_0b_1, which is a1_b0 and 
             which is a1_b1). Equally importantly, he also doesn't know what the outputs to the other input rows are either, since 
