@@ -5,11 +5,42 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <div class="box">
+            <h1 style="margin-bottom:15px">frequently used symbols not on my keyboard</h1>
+            <p style="margin-bottom:15px">click symbol to copy</p>
+            <table style="border:0px">
+                <tr>
+                    <td>Modular congruence</td>
+                    <td><button onclick="copyChar('≡')" style="font-size: 1.5rem;">≡</button></td>
+                </tr>
+                <tr>
+                    <td>Où</td>
+                    <td><button onclick="copyChar('ù')" style="font-size: 1.5rem;">ù</button></td>
+                </tr>
+                <tr>
+                    <td>Degrees</td>
+                    <td><button onclick="copyChar('°')" style="font-size: 1.5rem;">°</button></td>
+                </tr>
+                <tr>
+                    <td>plus ou moins</td>
+                    <td><button onclick="copyChar('±')" style="font-size: 1.5rem;">±</button></td>
+                </tr>
+                <tr>
+                    <td>Guillemets</td>
+                    <td><button onclick="copyChar('«»')" style="font-size: 1.5rem;">«»</button></td>
+                </tr>
+            </table>
+        </div>
         <div class="menu-container">
             <div class="menu-popup" id="menuPopup"></div>
             <button class="menu-btn" onclick="toggleMenu()">☰</button>
         </div>
         <script src="scripts/Menu.js"></script>
+        <script>
+            function copyChar(char) {
+                navigator.clipboard.writeText(char);
+            }
+        </script>
     </body>
     
 </html>

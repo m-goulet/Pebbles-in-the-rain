@@ -64,7 +64,7 @@ h1{
 .shelf{
     padding: 20px 60px;
     width: 90%;
-    max-height: 70px;
+
     overflow: hidden;
     text-align: left;
     display: flex;
@@ -162,6 +162,12 @@ h1{
 
 .menu-popup a {
     padding: 4px 8px;
+}
+
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
 }
 
 

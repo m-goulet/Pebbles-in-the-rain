@@ -8,6 +8,49 @@
         <div class="box">
             <p style="font-style:italic">list of selected thoughts</p>
         </div>
+        <div class="shelf" onclick="expandShelf(this)" style="max-width: none; width: 640px;">
+            <h1>09/03/2026: Perte et récupération du mot de passe</h1>
+            <p>Travail complété dans le cadre d'un cours de littérature; pastiche de <em>Perte et récupération du cheveu</em> (Julio Cortazar)</p>
+            <p>«Si après l'introduction de l'excellent jeu du cheveu, vous réalisez que vous cherchiez non pas un jeu inutile, mais plutôt une activité 
+                inutilement utile, la présente publication aura trouvé le parfait destinataire.</p>
+            <p>Il faudra d'abord sélectionner son compte informatique le plus important: courriel, compte de banque, portail étudiant ou professionel, 
+                assurances, réseaux sociaux, etc. Ensuite, il faut donner son nom d'utilisateur et son mot de passe à quelqu'un au choix: pour une partie 
+                rapide et facile, choisissez un ami proche; pour une partie de difficulté intermédiaire, un collègue conviendra; si vous souhaitez tenter 
+                votre chance, parlez au premier passant au coin de la rue, et si vous avez vraiment du temps (et une santé mentale) à perdre, prenez 
+                contact avec un ancien amant. La partie commence officiellement une fois que la personne choisie, que nous nommerons le "maître du jeu", 
+                annonce la modification du mot de passe.</p>
+            <p>Quelques essais initiaux valent la peine d'être entrés sans trop de méditation: "bonjour123", "11111111", "asdfghjkl", la date 
+                d'anniversaire ou le nom du chien du maître du jeu, etc. Il ne serait pas mal avisé d'enquêter un peu, question de se renseigner au sujet 
+                des informations personnelles du maître du jeu qui pourraient aider à trouver le fameux mot de passe.</p>
+            <p>Si ces recherches se révèlent infructueuses, et que le mot de passe n'est toujours pas deviné, il serait temps de considérer une approche 
+                plus systématique: procurez-vous une douzaine de dictionnaires en langues diverses (français, anglais, portugais, swahili, latin, 
+                qu'importe!) et entrez un par un les mots qui s'y trouvent.</p>
+            <p>Il est certes possible qu'après quelques dizaines d'heures, l'irritation croissante de ne plus pouvoir accéder à vos courriels vous mène à 
+                chercher des moyens plus efficaces de taper tous ces mots. Certaines alternatives se présentent: vous pourriez apprendre à programmer, 
+                écrire un "<em>script</em>" pour entrer automatiquement des milliers d'essais par seconde, puis attendre. Vous pourriez embaucher une 
+                équipe de typographes et décupler avec peu d'efforts le débit d'essais. Vous pourriez même pirater les ordinateurs du maître du jeu, et 
+                entrer ses mots de passe en espérant que l'un d'entre eux corresponde à celui que vous cherchez, mais il ne faut surtout, surtout pas lui 
+                demander de révéler la réponse ni même de dévoiler des indices, puisque cela équivaut à déclarer forfait au jeu.</p>
+            <p>Dans l'éventuel cas, cher joueur dédié, où vous n'auriez toujours pas saisi la réponse, il serait facile de penser que vous êtes, pour 
+                ainsi dire, "dans la merde". L'important est toutefois de garder son sang-froid: contactez selon le cas la banque, l'employeur, 
+                l'institution, et expliquez franchement votre situation. Bien que le maître ne puisse pas vous guider dans la quête, ces acteurs tierces 
+                le peuvent, s'ils le souhaitent. Avec suffisamment de supplications, d'implorations, de sérénades, vous parviendrez sans doute à les 
+                convaincre de vous accompagner vers la fin de votre longue quête.</p>
+            <p>Il s'avère néanmoins que dans certains systèmes informatiques bien conçus, bien sécurisés, toute donnée personnelle est soumise à un 
+                cryptage ou deux. Bref, au sein des entrepôts de données numériques se trouvent des tas de symboles inintelligibles, parmi lesquels aucun 
+                ne correspond à votre mot de passe. Dans ce cas, il va sans dire que les acteurs tierces invoqués plus tôt ne vous seraient d'aucune aide 
+                et que votre quête serait encore dans sa plus tendre enfance.</p>
+            <p>Vos recours seraient alors limités. La plus prometteuse approche serait la suivante: obtenez un doctorat en physique des matériaux, 
+                gravissez les échelons à NVIDIA ou autre géant de la technologie informatique, et redirigez l'équivalent du PIB de la Bulgarie vers la 
+                mise au point d'un ordinateur quantique capable de résoudre, de démystifier le secret des nombres premiers et ainsi de casser le 
+                cryptosystème RSA. Et s'il s'avère qu'un cryptosystème postquantique avait été utilisé, retenez encore votre désespoir pour quelques 
+                années, envahissez les universités du monde entier à la recherche de talents qui pourront vous proposer des ordinateurs aux architectures 
+                toujours plus puissantes, plus performantes, plus rapides; ignorez les problèmes politiques, sociaux, éthiques engendrés par ces féroces 
+                bêtes à calcul, poussez toujours plus loin vos précieux ingénieurs, et ne cessez jamais votre recherche car il ne faut surtout pas que 
+                votre pire crainte se réalise: vous pleurez seul(e) dans la noirceur de vos draps, terrifié(e), paralysé(e), étranglé(e) par 
+                l'impossibilité d'accéder à ce foutu compte informatique qui vous tenait jadis informé à longueur de journée à propos de l'état de votre 
+                portfolio, des dernières vacances de l'ami de votre cousin, ou de votre note en littérature.</p>
+        </div>
         <div class="shelf" onclick="expandShelf(this)" style="max-width: none; width:640px">
             <h1>08/03/2026: RSA, briefly</h1>
             <p>Goal: be able to encrypt messages without needing to share private keys</p>
@@ -23,16 +66,21 @@
             <ol>
                 <li>Alice generates two large primes, p and q and publishes their product n.</li>
                 <li>Alice selects some arbitrary integer d, which she keeps secret.</li>
-                <li>Alice finds an e such that de is congruent to 1 mod((p-1)(q-1)). This can be done efficiently through Euclid's algorithm. The neat thing here is that message^de (mod n) is congruent to message (mod n). Indeed, due to Euler's Totient theorem, x^[phi(n)]≡1 (mod n) when x and n coprime, so x^[de] ≡ x^[T*phi(n)+1] ≡ ((x^[phi(n)])^T)*x ≡ (1^T)*x ≡ x (mod n). Some handwaiving here and there but that's the gist of it.</li>
+                <li>Alice finds an e such that de is congruent to 1 mod((p-1)(q-1)). This can be done efficiently through Euclid's algorithm. 
+                    The neat thing here is that x^de (mod n) is congruent to x (mod n). Indeed, due to Euler's Totient theorem, x^[phi(n)]≡1 (mod n) 
+                    when x and n coprime, so x^[de] ≡ x^[T*phi(n)+1] ≡ ((x^[phi(n)])^T)*x ≡ (1^T)*x ≡ x (mod n). Some handwaiving here and there (namely for when x and n are not coprime, though it turns out this is not an issue) but 
+                    that's the gist of it.</li>
                 <li>Alice publishes e.</li>
             </ol>
             <p>Message transmission:</p>
             <ol>
                 <li>Bob takes his message M, splits it into small chunks m_0, m_1, m_2, etc. according to some predefined protocol such that m_i are less than n.</li>
                 <li>Bob publishes (m_i)^e (mod n). Now his message is encrypted, nobody else can read it because it is extremely hard to take eth roots without knowing the prime factors of n.</li>
-                <li>Alice receives (m_i)^e and calculates ((m_i)^e)^d which is just m_i due to the construction of the d and e pair.</li>
+                <li>Alice receives (m_i)^e and calculates ((m_i)^e)^d which reduces to m_i modulo n due to the construction of the d and e pair.</li>
             </ol>
-            <p>Thus n and e consitute the public key, which allow anyone to put a Alice's lock on the messages people want to send her, whereas d is Alice's private key which allows only her to decrypt the messages.</p>
+            <p>Thus n and e consitute the public key, which allow anyone to put a Alice's lock on the messages people want to send her, whereas d is Alice's
+                 private key which allows only her to decrypt the messages.</p>
+            <p><em>Wait, isn't exponentiating numbers like that really hard? After all, the numbers get huge super quick, no?</em>No, you reduce mod n (=looking only at the remainder when dividing by n) which allows the computation to stay manageable</p>
             <p><strong>Flaws</strong></p>
             <ul>
                 <li>This scheme relies on the difficulty of factoring large numbers, and I think at this point if you are still reading you have heard of Shor's algorithm which speeds up factoring to require only polynomial time on quantum computers. As far as I know we are not super close to quantum computers, but anyone could save any encrypted RSA message now and decrypt it later.</li>
@@ -134,7 +182,7 @@
             <p><strong>Flaws</strong></p>
             <ul>
                 <li>If Alice is malicious she could send a bad circuit which reveals Bob's value. Bob would have a hard time telling.</li>
-                <li>I have no idea how you could efficiently implement this in hardware but this is a skill issue on my part. But it does seem that each garbled gate is a lot more complex than a regular logic gate, since it must be able to input and output a broader range of values (some arbitrary strings vs only 0s and 1s).</li>
+                <li>I have no idea how you could efficiently implement this in hardware, though I haven't read much into this particular topic. But it does seem that each garbled gate is a lot more complex than a regular logic gate, since it must be able to input and output a broader range of values (some arbitrary strings vs only 0s and 1s).</li>
             </ul>
             <p><strong>related</strong></p>
             <p>I think you could directly expand this to multi-party computation. Suppose you want to evaluate f(x_1, x_2, x_3, ..., x_n). Alice plays the same role, garbling the circuit, then communicates via oblivious transfers Bob's input strings. Bob can broadcast which hashes in the input gate he selects. This does not reveal his inputs, since you can't go backwards from the hashes. Charlie does the same, etc. until the last person who can now evaluate the entire circuit. The hashes do not reveal what the underlying inputs are, so we are good here. This implementation would still be subject to the flaws of garbled circuits though, and it seems that most implementations of multi-party computation do not adopt this approach, though I haven't read much into it. </p>
