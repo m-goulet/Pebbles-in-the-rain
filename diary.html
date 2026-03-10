@@ -49,7 +49,7 @@
                 bêtes à calcul, poussez toujours plus loin vos précieux ingénieurs, et ne cessez jamais votre recherche car il ne faut surtout pas que 
                 votre pire crainte se réalise: vous pleurez seul(e) dans la noirceur de vos draps, terrifié(e), paralysé(e), étranglé(e) par 
                 l'impossibilité d'accéder à ce foutu compte informatique qui vous tenait jadis informé à longueur de journée à propos de l'état de votre 
-                portfolio, des dernières vacances de l'ami de votre cousin, ou de votre note en littérature.</p>
+                portfolio, des dernières vacances de l'ami de votre cousin, ou de votre note en littérature...»</p>
         </div>
         <div class="shelf" onclick="expandShelf(this)" style="max-width: none; width:640px">
             <h1>08/03/2026: RSA, briefly</h1>
@@ -125,13 +125,15 @@
             <p>Garbled circuits are circuits made of garbled gates.</p>
             <p><strong>garbled gates</strong></p>
             <p>The truth table for a regular logic gate is something like this:</p>
-            <p>TODO: add picture</p>
+            <img src="assets/Truth_table.png" alt="truth table" style="width:108px; height:120px"></img>
             <p>Here is how to garble this gate, from Alice's point of view:</p>
             <ol>
                 <li>Assign an arbitrary string to 0s (a_0) and 1s (a_1) in the a column, 
                 to 0s (b_0) and 1s (b_1) in the b column, and to 0s (c_0) and 1s (c_1) in 
                 the output column. Alice keeps these strings, and does not reveal them.</li>
-                <li>Write the new truth table, where each 0 or 1 is replaced by its corresponding string.</li>
+                <li>Write the new truth table, where each 0 or 1 is replaced by its corresponding string.
+                    <img src="assets/Stringified_truth_table.png" alt="Stringified truth table" style="width:240px; height:120px; margin-top:30px; margin-bottom:30px"></img>
+                </li>
                 <li>For each row in this new truth table, using a symmetric encryption 
                 scheme (=scheme that encrypts and decrypts using the same key, such as AES), encrypt the output column.
                 The key used is the string resulting from the concatenation of the input strings. Since each key 
@@ -139,6 +141,15 @@
                 <li>In this truth table, for each row, replace the two input columns with a single entry 
                 corresponding to the cryptographically secure hash of the concatenation of the inputs. Now, the truth 
                 table has only two columns of four unintelligible strings. Shuffle the rows. This is the garbled gate.</li>
+                <figure>
+                    <img src="assets/Hidden_truth_table.png" alt="how to compute the garbled gate" style="width:480px; height: 120px; margin-top:30px"></img>
+                    <figcaption>how to compute the garbled gate</figcaption>
+                </figure>
+                <figure>
+                    <img src="assets/encrypted_truth_table.png" alt="final garbled gate" style="width:480px; height: 120px; margin-top: 30px;"></img>
+                    <figcaption>final garbled gate</figcaption>
+                </figure>
+                
             </ol>
             <p>To an outsider, the gate means nothing. Alice can completely control which inputs Bob is allowed 
             to plug into the circuit, by disclosing the corresponding strings for the input: a_0 or a_1; b_0 or 
