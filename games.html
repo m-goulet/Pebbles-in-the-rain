@@ -5,10 +5,76 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <canvas id="canvas-area" width="640" height="400" style="border:1px solid #000000; background-color: #FFFFFF">
+
+        </canvas>
         <div class="menu-container">
             <div class="menu-popup" id="menuPopup"></div>
             <button class="menu-btn" onclick="toggleMenu()">☰</button>
         </div>
         <script src="scripts/Menu.js"></script>
+        <script>
+            var canvas = document.getElementById("canvas-area");
+            var ctx = canvas.getContext("2d");
+
+            const dot = { x: 300, y: 200, r: 12, speed: 3, color: '1a1a1a' };
+            const keys = {};
+
+            document.addEventListener('keydown', e => {
+                keys[e.key.toLowerCase()] = true;
+
+                //remnants of AI SLOP below (doesn't hurt but not strictly necessary)
+                if (['w','a','s','d', ' '].includes(e.key.toLowerCase())){
+                    e.preventDefault();
+                } 
+            });
+
+            document.addEventListener('keyup', e => keys[e.key.toLowerCase()] = false);
+
+            function update() {
+                if (keys['w']) dot.y = Math.max(dot.r, dot.y - dot.speed);
+                if (keys['s']) dot.y = Math.min(canvas.height - dot.r, dot.y + dot.speed);
+                if (keys['a']) dot.x = Math.max(dot.r, dot.x - dot.speed);
+                if (keys['d']) dot.x = Math.min(canvas.width - dot.r, dot.x + dot.speed);
+                if (keys[' ']) {
+                    dot.color = '#FF0000'
+                    //check if in collision box and click link
+                }
+                else{
+                    dot.color = '#1a1a1a'
+                };
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.beginPath();
+                ctx.arc(dot.x, dot.y, dot.r, 0, Math.PI * 2);
+                ctx.fillStyle = dot.color;
+                ctx.fill();
+            }
+
+            function loop() {
+                update();
+                draw();
+                requestAnimationFrame(loop);
+            }
+
+            loop();
+            /*
+            for (let i = 0; i < 6; i++){
+                ctx.moveTo(100*i, 0);
+                ctx.lineTo(100*i+200, 100);
+                ctx.stroke();
+            }
+
+            setTimeout(()=>
+            {for (let i = 0; i < 6; i++){
+                ctx.moveTo(100*i, 100);
+                ctx.lineTo(100*i+200, 200);
+                ctx.stroke();
+            };}, 2000);            
+            */
+
+        </script> 
     </body>
 </html>
