@@ -1,13 +1,17 @@
 var canvas = document.getElementById("canvas-area");
 var ctx = canvas.getContext("2d");
 
-const dot = { x: 320, y: 200, r: 12, speed: 3, color: '#1a1a1a' };
+const map = document.getElementById("map");
+
+const player = { x: 0, y: 0, r: 12, speed: 3, color: '#1a1a1a' };
 const keys = {};
+
+map.addEventListener("load", (e)=>{ctx.drawImage(map, 10, 10);});
 
 document.addEventListener('keydown', e => {
     keys[e.key.toLowerCase()] = true;
-
-    //remnants of AI SLOP below (doesn't hurt but not strictly necessary)
+    
+    //below only actually does something for space character
     if (['w','a','s','d', ' '].includes(e.key.toLowerCase())){
         e.preventDefault();
     } 
@@ -15,20 +19,58 @@ document.addEventListener('keydown', e => {
 
 document.addEventListener('keyup', e => keys[e.key.toLowerCase()] = false);
 
+//takes in absolute position on map 
+//(origin is character starting position)
+//and returns position on canvas for a given frame
+function coordinator(abs_pos, character_pos, axis) {
+    //input: abs_pos is the value along x XOR y axis
+    //character_position: just pass in the player object
+    //axis: 0 for x axis, 1 for y axis
+    if (axis==0){
+        return (abs_pos - character_pos.x + 320)
+    }
+    if (axis==1){
+        return (-abs_pos + character_pos.y + 200)
+    }
+    else{
+        console.log("Error: invalid axis (coordinator)?? how the fuck")
+        return
+    }
+}
+
+//inverse function of coordinator()
+//takes in position on canvas for a given frame
+//and returns absolute position on the map
+function uncloordinator(rel_pos, character_pos, axis){
+    //input: rel_pos is position on canvas
+    //character_pos: absolute position of character; just pass in the character object
+    //axis: 0 for x axis, 1 for y axis
+    if (axis==0){
+        return (-rel_pos + character_pos.x - 320)
+    }
+    if (axis==1){
+        return (-rel_pos + character_pos.y + 200)
+    }
+    else{
+        console.log("Error: invalid axis (uncloordinator)?? how the fuck")
+        return
+    }    
+}
+
 function update() {
-    if (keys['w']) dot.y = Math.max(dot.r, dot.y - dot.speed);
-    if (keys['s']) dot.y = Math.min(canvas.height - dot.r, dot.y + dot.speed);
-    if (keys['a']) dot.x = Math.max(dot.r, dot.x - dot.speed);
-    if (keys['d']) dot.x = Math.min(canvas.width - dot.r, dot.x + dot.speed);
+    if (keys['w']) player.y = player.y + player.speed;
+    if (keys['s']) player.y = player.y - player.speed;
+    if (keys['a']) player.x = player.x - player.speed;
+    if (keys['d']) player.x = player.x + player.speed;
     if (keys[' ']) {
-        dot.color = '#FF0000'
+        player.color = '#FF0000'
         //check if in collision box and click link
-        if ((dot.x<100)&&(dot.y<100)){
+        if ((player.x>-320)&&(player.x<-220)&&(player.y>150)&&(player.y<250)){
             window.location.href="https://www.google.com";
         }
     }
     else{
-        dot.color = '#1a1a1a'
+        player.color = '#1a1a1a'
     };
 }
 
@@ -40,12 +82,17 @@ function draw() {
     ctx.lineWidth = "1";
     ctx.strokeStyle = "green";
     ctx.fillStyle = "blue";
-    ctx.fillRect(0,0,100,100);
+    ctx.fillRect(coordinator(-320, player, 0),coordinator(150, player, 1), 100, 100);
+
+    //map
+    ctx.drawImage(map, coordinator(10, player, 0), coordinator(10, player, 1));
+
     
+    //Always draw last to have it on the very top
     //player
     ctx.beginPath();
-    ctx.arc(dot.x, dot.y, dot.r, 0, Math.PI * 2);
-    ctx.fillStyle = dot.color;
+    ctx.arc(320, 200, player.r, 0, Math.PI * 2);
+    ctx.fillStyle = player.color;
     ctx.fill();
 }
 
@@ -56,17 +103,3 @@ function loop() {
 }
 
 loop();
-/*
-for (let i = 0; i < 6; i++){
-    ctx.moveTo(100*i, 0);
-    ctx.lineTo(100*i+200, 100);
-    ctx.stroke();
-}
-
-setTimeout(()=>
-{for (let i = 0; i < 6; i++){
-    ctx.moveTo(100*i, 100);
-    ctx.lineTo(100*i+200, 200);
-    ctx.stroke();
-};}, 2000);            
-*/
