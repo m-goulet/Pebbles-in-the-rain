@@ -3,7 +3,7 @@ var ctx = canvas.getContext("2d");
 
 const map = document.getElementById("map");
 
-const player = { x: 0, y: 0, r: 12, speed: 3, color: '#1a1a1a' };
+const player = { x: 0, y: 0, r: 12, max_speed: 3, color: '#1a1a1a' };
 const keys = {};
 
 map.addEventListener("load", (e)=>{ctx.drawImage(map, 10, 10);});
@@ -58,14 +58,14 @@ function uncloordinator(rel_pos, character_pos, axis){
 }
 
 function update() {
-    if (keys['w']) player.y = player.y + player.speed;
-    if (keys['s']) player.y = player.y - player.speed;
-    if (keys['a']) player.x = player.x - player.speed;
-    if (keys['d']) player.x = player.x + player.speed;
+    if (keys['w']) player.y = player.y + player.max_speed;
+    if (keys['s']) player.y = player.y - player.max_speed;
+    if (keys['a']) player.x = player.x - player.max_speed;
+    if (keys['d']) player.x = player.x + player.max_speed;
     if (keys[' ']) {
         player.color = '#FF0000'
         //check if in collision box and click link
-        if ((player.x>-320)&&(player.x<-220)&&(player.y>150)&&(player.y<250)){
+        if ((player.x>-320)&&(player.x<-220)&&(player.y>50)&&(player.y<150)){
             window.location.href="https://www.google.com";
         }
     }
@@ -76,7 +76,11 @@ function update() {
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     
+    //map
+    ctx.drawImage(map, coordinator(-400, player, 0), coordinator(700, player, 1));
+
     //testing zone
     ctx.beginPath();
     ctx.lineWidth = "1";
@@ -84,8 +88,6 @@ function draw() {
     ctx.fillStyle = "blue";
     ctx.fillRect(coordinator(-320, player, 0),coordinator(150, player, 1), 100, 100);
 
-    //map
-    ctx.drawImage(map, coordinator(10, player, 0), coordinator(10, player, 1));
 
     
     //Always draw last to have it on the very top
