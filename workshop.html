@@ -39,6 +39,21 @@
                 </tr>
             </table>
         </div>
+        <div class="box">
+            <h1>temporary file transfer</h1>
+            <h2>Upload</h2>
+            <input type="file" id="file-input"/>
+            <button onclick="uploadFile()">Upload</button>
+            <p id="upload-status"></p>
+            <p id="upload-link"></p>
+            
+            <hr>
+            
+            <h2>Download</h2>
+            <input type="text" id="link-input" placeholder="Paste your file.io link here"/>
+            <button onclick="downloadFile()">Download</button>
+            <p id="download-status"></p>
+        </div>
         <div class="menu-container">
             <div class="menu-popup" id="menuPopup"></div>
             <button class="menu-btn" onclick="toggleMenu()">☰</button>
@@ -49,6 +64,7 @@
                 navigator.clipboard.writeText(char);
             }
         </script>
+        <script src="transfer.js"></script>
     </body>
     
 </html>

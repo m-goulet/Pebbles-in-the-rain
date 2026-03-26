@@ -3,7 +3,7 @@ var ctx = canvas.getContext("2d");
 
 const map = document.getElementById("map");
 
-const player = { x: 0, y: 0, r: 12, max_speed: 3, color: '#1a1a1a' };
+const player = { x: 0, y: 0, r: 12, speed_x: 3, speed_y:3, max_speed: 30, accel: 1, color: '#1a1a1a' };
 const keys = {};
 
 map.addEventListener("load", (e)=>{ctx.drawImage(map, 10, 10);});
@@ -58,10 +58,10 @@ function uncloordinator(rel_pos, character_pos, axis){
 }
 
 function update() {
-    if (keys['w']) player.y = player.y + player.max_speed;
-    if (keys['s']) player.y = player.y - player.max_speed;
-    if (keys['a']) player.x = player.x - player.max_speed;
-    if (keys['d']) player.x = player.x + player.max_speed;
+    if (keys['w']) player.y = player.y + player.speed_y;
+    if (keys['s']) player.y = player.y - player.speed_y;
+    if (keys['a']) player.x = player.x - player.speed_x;
+    if (keys['d']) player.x = player.x + player.speed_x;
     if (keys[' ']) {
         player.color = '#FF0000'
         //check if in collision box and click link
