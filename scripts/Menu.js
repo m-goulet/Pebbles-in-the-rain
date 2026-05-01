@@ -10,6 +10,6 @@ fetch('menu.html')
     });
 
 function expandShelf(element) {
-    // This allows you to click to open, and click again to close
+    //click to open/close
     element.classList.toggle('expanded');
 }

@@ -1,4 +1,16 @@
+//project abandonned for now. Too much of a hassle for a very minor problem
+
 async function uploadFile() {
+
+  /*
+    await fetch("https://your-worker.workers.dev/upload", {
+    method: "PUT",
+    headers: { "Content-Type": file.type },
+    body: file,
+  });
+  */
+
+/*
   const fileInput = document.getElementById("file-input");
   const status = document.getElementById("upload-status");
   const linkDisplay = document.getElementById("upload-link");
@@ -30,9 +42,20 @@ async function uploadFile() {
   } catch (err) {
     status.textContent = "Error: " + err.message;
   }
+*/
 }
 
 async function downloadFile() {
+
+  /*
+  const res = await fetch("https://your-worker.workers.dev/download");
+  const blob = await res.blob();
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "transferred-file";
+  a.click();
+  */
+/*
   const link = document.getElementById("link-input").value.trim();
   const status = document.getElementById("download-status");
 
@@ -72,4 +95,5 @@ async function downloadFile() {
   } catch (err) {
     status.textContent = "Error: " + err.message;
   }
+*/
 }
