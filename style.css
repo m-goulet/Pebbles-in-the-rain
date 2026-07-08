@@ -1,4 +1,19 @@
-    @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&display=swap');
+/* latin */
+@font-face {
+  font-family: 'Atkinson Hyperlegible Mono';
+  font-style: italic;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url(font/Atkinson_Hyperlegible_Mono/AtkinsonHyperlegibleMono-Italic-VariableFont_wght.ttf) format('truetype');
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Atkinson Hyperlegible Mono';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url(font/Atkinson_Hyperlegible_Mono/AtkinsonHyperlegibleMono-VariableFont_wght.ttf) format('truetype');
+}
 
 :root {
     --bg-main: aliceblue;
